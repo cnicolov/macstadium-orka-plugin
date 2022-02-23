@@ -26,11 +26,17 @@ public class ConfigurationRequest {
     @SuppressFBWarnings("URF_UNREAD_FIELD")
     private int cpuCount;
 
-    public ConfigurationRequest(String vmName, String image, String baseImage, String configTemplate, int cpuCount) {
+    @SerializedName("scheduler")
+    @SuppressFBWarnings("URF_UNREAD_FIELD")
+    private String scheduler;
+
+    public ConfigurationRequest(String vmName, String image, String baseImage, String configTemplate, int cpuCount,
+            String scheduler) {
         this.vmName = vmName;
         this.image = image;
         this.baseImage = baseImage;
         this.configTemplate = configTemplate;
         this.cpuCount = cpuCount;
+        this.scheduler = scheduler;
     }
 }

@@ -66,10 +66,10 @@ public class OrkaClientProxy {
     }
 
     public ConfigurationResponse createConfiguration(String vmName, String image, String baseImage,
-            String configTemplate, int cpuCount) throws IOException {
+            String configTemplate, int cpuCount, String scheduler) throws IOException {
 
         try (OrkaClient client = getOrkaClient()) {
-            return client.createConfiguration(vmName, image, baseImage, configTemplate, cpuCount);
+            return client.createConfiguration(vmName, image, baseImage, configTemplate, cpuCount, scheduler);
         }
     }
 

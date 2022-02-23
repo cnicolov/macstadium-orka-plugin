@@ -132,12 +132,13 @@ public final class OrkaComputerLauncher extends ComputerLauncher {
             String image = configName;
             String baseImage = agent.getBaseImage();
             int numCPUs = agent.getNumCPUs();
+            String scheduler = agent.getScheduler();
 
             ConfigurationResponse configResponse = clientProxy.createConfiguration(configName, image, baseImage,
-                    template, numCPUs);
+                    template, numCPUs, scheduler);
             if (!configResponse.isSuccessful()) {
                 logger.println(String.format(configurationErrorFormat, Utils.getTimestamp(), configName, image,
-                        baseImage, template, numCPUs, Utils.getErrorMessage(configResponse)));
+                        baseImage, template, numCPUs, scheduler, Utils.getErrorMessage(configResponse)));
                 return false;
             }
             logger.println(
