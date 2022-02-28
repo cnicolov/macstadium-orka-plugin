@@ -41,25 +41,6 @@ public class OrkaAgent extends AbstractCloudSlave {
 
     public OrkaAgent(String name, String orkaCredentialsId, String orkaEndpoint, String vmCredentialsId, String vm,
             String node, String redirectHost, boolean createNewVMConfig, String configName, String baseImage,
-            int numCPUs, int numExecutors, String host, int port, String remoteFS, String scheduler)
-            throws Descriptor.FormException, IOException {
-
-        super(name, remoteFS, new OrkaComputerLauncher(host, port, redirectHost));
-
-        this.orkaCredentialsId = orkaCredentialsId;
-        this.orkaEndpoint = orkaEndpoint;
-        this.vmCredentialsId = vmCredentialsId;
-        this.vm = vm;
-        this.node = node;
-        this.createNewVMConfig = createNewVMConfig;
-        this.configName = configName;
-        this.baseImage = baseImage;
-        this.numCPUs = numCPUs;
-        this.scheduler = scheduler;
-    }
-
-    public OrkaAgent(String name, String orkaCredentialsId, String orkaEndpoint, String vmCredentialsId, String vm,
-            String node, String redirectHost, boolean createNewVMConfig, String configName, String baseImage,
             int numCPUs, int numExecutors, String host, int port, String remoteFS)
             throws Descriptor.FormException, IOException {
 
@@ -78,7 +59,6 @@ public class OrkaAgent extends AbstractCloudSlave {
                 useJenkinsProxySettings, ignoreSSLErrors, null);
     }
 
-    @DataBoundConstructor
     public OrkaAgent(String name, String orkaCredentialsId, String orkaEndpoint, String vmCredentialsId, String vm,
             String node, String redirectHost, boolean createNewVMConfig, String configName, String baseImage,
             int numCPUs, int numExecutors, String host, int port, String remoteFS,
@@ -99,6 +79,32 @@ public class OrkaAgent extends AbstractCloudSlave {
         this.useJenkinsProxySettings = useJenkinsProxySettings;
         this.ignoreSSLErrors = ignoreSSLErrors;
         this.jvmOptions = jvmOptions;
+
+        this.setNumExecutors(numExecutors);
+    }
+
+    @DataBoundConstructor
+    public OrkaAgent(String name, String orkaCredentialsId, String orkaEndpoint, String vmCredentialsId, String vm,
+            String node, String redirectHost, boolean createNewVMConfig, String configName, String baseImage,
+            int numCPUs, int numExecutors, String host, int port, String remoteFS,
+            boolean useJenkinsProxySettings, boolean ignoreSSLErrors, String jvmOptions, String scheduler)
+            throws Descriptor.FormException, IOException {
+
+        super(name, remoteFS, new OrkaComputerLauncher(host, port, redirectHost, jvmOptions));
+
+        this.orkaCredentialsId = orkaCredentialsId;
+        this.orkaEndpoint = orkaEndpoint;
+        this.vmCredentialsId = vmCredentialsId;
+        this.vm = vm;
+        this.node = node;
+        this.createNewVMConfig = createNewVMConfig;
+        this.configName = configName;
+        this.baseImage = baseImage;
+        this.numCPUs = numCPUs;
+        this.useJenkinsProxySettings = useJenkinsProxySettings;
+        this.ignoreSSLErrors = ignoreSSLErrors;
+        this.jvmOptions = jvmOptions;
+        this.scheduler = scheduler;
 
         this.setNumExecutors(numExecutors);
     }

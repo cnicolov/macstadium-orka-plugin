@@ -74,7 +74,6 @@ public class AgentTemplate implements Describable<AgentTemplate> {
                 mode, labelString, namePrefix, retentionStrategy, verificationStrategy, nodeProperties, null);
     }
 
-    @DataBoundConstructor
     public AgentTemplate(String vmCredentialsId, String vm, boolean createNewVMConfig, String configName,
             String baseImage, int numCPUs, int numExecutors, String remoteFS, Mode mode, String labelString,
             String namePrefix, RetentionStrategy<?> retentionStrategy, OrkaVerificationStrategy verificationStrategy,
@@ -99,8 +98,8 @@ public class AgentTemplate implements Describable<AgentTemplate> {
     @DataBoundConstructor
     public AgentTemplate(String vmCredentialsId, String vm, boolean createNewVMConfig, String configName,
             String baseImage, int numCPUs, int numExecutors, String remoteFS, Mode mode, String labelString,
-            RetentionStrategy<?> retentionStrategy, OrkaVerificationStrategy verificationStrategy,
-            List<? extends NodeProperty<?>> nodeProperties, String scheduler) {
+            String namePrefix, RetentionStrategy<?> retentionStrategy, OrkaVerificationStrategy verificationStrategy,
+            List<? extends NodeProperty<?>> nodeProperties, String jvmOptions, String scheduler) {
         this.vmCredentialsId = vmCredentialsId;
         this.vm = vm;
         this.createNewVMConfig = createNewVMConfig;
@@ -111,14 +110,12 @@ public class AgentTemplate implements Describable<AgentTemplate> {
         this.remoteFS = remoteFS;
         this.mode = mode;
         this.labelString = labelString;
+        this.namePrefix = namePrefix;
         this.retentionStrategy = retentionStrategy;
         this.verificationStrategy = verificationStrategy;
         this.nodeProperties = new DescribableList<>(Saveable.NOOP, Util.fixNull(nodeProperties));
-        if (scheduler != null) {
-            this.scheduler = scheduler;
-        } else {
-            this.scheduler = "default";
-        }
+        this.jvmOptions = jvmOptions;
+        this.scheduler = scheduler;
     }
 
     public String getOrkaCredentialsId() {
@@ -181,6 +178,10 @@ public class AgentTemplate implements Describable<AgentTemplate> {
         return this.jvmOptions;
     }
 
+    public String getScheduler() {
+        return this.scheduler;
+    }
+
     public RetentionStrategy<?> getRetentionStrategy() {
         return this.retentionStrategy;
     }
@@ -191,10 +192,6 @@ public class AgentTemplate implements Describable<AgentTemplate> {
 
     public DescribableList<NodeProperty<?>, NodePropertyDescriptor> getNodeProperties() {
         return Objects.requireNonNull(this.nodeProperties);
-    }
-
-    public String getScheduler() {
-        return this.scheduler;
     }
 
     public Descriptor<AgentTemplate> getDescriptor() {
@@ -352,9 +349,10 @@ public class AgentTemplate implements Describable<AgentTemplate> {
     public String toString() {
         return "AgentTemplate [baseImage=" + baseImage + ", configName=" + configName + ", createNewVMConfig="
                 + createNewVMConfig + ", idleTerminationMinutes=" + idleTerminationMinutes + ", labelString="
-                + labelString + ", mode=" + mode + ", nodeProperties=" + nodeProperties + ", numCPUs=" + numCPUs
-                + ", numExecutors=" + numExecutors + ", parent=" + parent + ", remoteFS=" + remoteFS
-                + ", retentionStrategy=" + retentionStrategy + "scheduler=" + scheduler + ", verificationStrategy="
-                + verificationStrategy + ", vm=" + vm + ", vmCredentialsId=" + vmCredentialsId + "]";
+                + labelString + ", namePrefix=" + namePrefix + ", mode=" + mode + ", nodeProperties="
+                + nodeProperties + ", numCPUs=" + numCPUs + ", numExecutors=" + numExecutors + ", parent=" + parent
+                + ", remoteFS=" + remoteFS + ", retentionStrategy=" + retentionStrategy + ", verificationStrategy="
+                + verificationStrategy + ", vm=" + vm + ", vmCredentialsId=" + vmCredentialsId + " scheduler="
+                + scheduler + "]";
     }
 }
