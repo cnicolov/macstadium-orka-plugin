@@ -89,24 +89,10 @@ public class OrkaAgent extends AbstractCloudSlave {
             int numCPUs, int numExecutors, String host, int port, String remoteFS,
             boolean useJenkinsProxySettings, boolean ignoreSSLErrors, String jvmOptions, String scheduler)
             throws Descriptor.FormException, IOException {
-
-        super(name, remoteFS, new OrkaComputerLauncher(host, port, redirectHost, jvmOptions));
-
-        this.orkaCredentialsId = orkaCredentialsId;
-        this.orkaEndpoint = orkaEndpoint;
-        this.vmCredentialsId = vmCredentialsId;
-        this.vm = vm;
-        this.node = node;
-        this.createNewVMConfig = createNewVMConfig;
-        this.configName = configName;
-        this.baseImage = baseImage;
-        this.numCPUs = numCPUs;
-        this.useJenkinsProxySettings = useJenkinsProxySettings;
-        this.ignoreSSLErrors = ignoreSSLErrors;
-        this.jvmOptions = jvmOptions;
+        this(name, orkaCredentialsId, orkaEndpoint, vmCredentialsId, vm, node, redirectHost, createNewVMConfig,
+                configName, baseImage, numCPUs, numExecutors, host, port, remoteFS, useJenkinsProxySettings,
+                ignoreSSLErrors, jvmOptions);
         this.scheduler = scheduler;
-
-        this.setNumExecutors(numExecutors);
     }
 
     public String getOrkaCredentialsId() {
