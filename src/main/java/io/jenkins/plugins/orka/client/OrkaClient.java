@@ -52,7 +52,7 @@ public class OrkaClient implements AutoCloseable {
             throws IOException {
         this(endpoint, email, password, httpClientTimeout, proxy, false);
     }
-    
+
     public OrkaClient(String endpoint, String email, String password, int httpClientTimeout, Proxy proxy,
             boolean ignoreSSLErrors)
             throws IOException {
@@ -71,7 +71,7 @@ public class OrkaClient implements AutoCloseable {
         response.setHttpResponse(httpResponse);
         return response;
     }
-    
+
     public VMConfigResponse getVMConfigs() throws IOException {
         HttpResponse httpResponse = this.get(this.endpoint + VM_PATH + CONFIG_PATH);
 
@@ -94,6 +94,22 @@ public class OrkaClient implements AutoCloseable {
         HttpResponse httpResponse = this.get(this.endpoint + IMAGE_PATH + LIST_PATH);
         Gson gson = new Gson();
         ImageResponse response = gson.fromJson(httpResponse.getBody(), ImageResponse.class);
+        response.setHttpResponse(httpResponse);
+
+        return response;
+    }
+
+    public ConfigurationResponse createConfiguration(String vmName, String image, String baseImage,
+            String configTemplate, int cpuCount) throws IOException {
+        Gson gson = new Gson();
+
+        ConfigurationRequest configRequest = new ConfigurationRequest(vmName, image, baseImage, configTemplate,
+                cpuCount);
+
+        String configRequestJson = gson.toJson(configRequest);
+
+        HttpResponse httpResponse = this.post(this.endpoint + VM_PATH + CREATE_PATH, configRequestJson);
+        ConfigurationResponse response = gson.fromJson(httpResponse.getBody(), ConfigurationResponse.class);
         response.setHttpResponse(httpResponse);
 
         return response;
@@ -218,7 +234,7 @@ public class OrkaClient implements AutoCloseable {
             throw new IOException(error);
         }
     }
-    
+
     private OkHttpClient createClient(Proxy proxy, int httpClientTimeout, boolean ignoreSSLErrors) {
         OkHttpClient.Builder builder = ignoreSSLErrors ? SSLHelper.ignoreSSLErrors(clientBase.newBuilder())
                 : clientBase.newBuilder();

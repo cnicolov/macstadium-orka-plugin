@@ -26,9 +26,9 @@ public class OrkaClientProxy {
     private int httpClientTimeout;
     private boolean ignoreSSLErrors;
     private Proxy proxy;
-    
+
     public OrkaClientProxy(String endpoint, String credentialsId, int httpClientTimeout,
-        boolean useJenkinsProxySettings) {
+            boolean useJenkinsProxySettings) {
         this(endpoint, credentialsId, httpClientTimeout, useJenkinsProxySettings, false);
     }
 
@@ -46,7 +46,7 @@ public class OrkaClientProxy {
             return client.getVMs().getVMs();
         }
     }
-    
+
     public List<OrkaVMConfig> getVMConfigs() throws IOException {
         try (OrkaClient client = getOrkaClient()) {
             return client.getVMConfigs().getConfigs();
@@ -62,6 +62,14 @@ public class OrkaClientProxy {
     public List<String> getImages() throws IOException {
         try (OrkaClient client = getOrkaClient()) {
             return client.getImages().getImages();
+        }
+    }
+
+    public ConfigurationResponse createConfiguration(String vmName, String image, String baseImage,
+            String configTemplate, int cpuCount) throws IOException {
+
+        try (OrkaClient client = getOrkaClient()) {
+            return client.createConfiguration(vmName, image, baseImage, configTemplate, cpuCount);
         }
     }
 
