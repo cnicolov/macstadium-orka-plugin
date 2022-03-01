@@ -100,21 +100,8 @@ public class AgentTemplate implements Describable<AgentTemplate> {
             String baseImage, int numCPUs, int numExecutors, String remoteFS, Mode mode, String labelString,
             String namePrefix, RetentionStrategy<?> retentionStrategy, OrkaVerificationStrategy verificationStrategy,
             List<? extends NodeProperty<?>> nodeProperties, String jvmOptions, String scheduler) {
-        this.vmCredentialsId = vmCredentialsId;
-        this.vm = vm;
-        this.createNewVMConfig = createNewVMConfig;
-        this.configName = configName;
-        this.baseImage = baseImage;
-        this.numCPUs = numCPUs;
-        this.numExecutors = numExecutors;
-        this.remoteFS = remoteFS;
-        this.mode = mode;
-        this.labelString = labelString;
-        this.namePrefix = namePrefix;
-        this.retentionStrategy = retentionStrategy;
-        this.verificationStrategy = verificationStrategy;
-        this.nodeProperties = new DescribableList<>(Saveable.NOOP, Util.fixNull(nodeProperties));
-        this.jvmOptions = jvmOptions;
+        this(vmCredentialsId, vm, createNewVMConfig, configName, baseImage, numCPUs, numExecutors, remoteFS,
+                mode, labelString, namePrefix, retentionStrategy, verificationStrategy, nodeProperties, jvmOptions);
         this.scheduler = scheduler;
     }
 
