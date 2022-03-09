@@ -30,6 +30,10 @@
     </f:entry>
 
     <f:advanced>
+      <f:entry title="${%Scheduler}" field="scheduler">
+        <c:select />
+      </f:entry>
+
       <f:entry title="Public Host" field="redirectHost">
         <f:textbox />
       </f:entry>
@@ -49,10 +53,6 @@
       </f:entry>
       
       <f:entry title="${%# of CPUs}" field="numCPUs">
-        <c:select />
-      </f:entry>
-
-      <f:entry title="${%Scheduler}" field="scheduler">
         <c:select />
       </f:entry>
 

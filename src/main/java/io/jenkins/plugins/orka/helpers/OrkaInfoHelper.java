@@ -12,7 +12,7 @@ public class OrkaInfoHelper {
     private OrkaClientProxyFactory clientProxyFactory;
 
     private static final String[] supportedCPUs = new String[] { "3", "4", "6", "8", "12", "24" };
-    private static final String[] supportedSchedulers = new String[] { "default", "most-allocated" };
+    private static final String[] supportedSchedulers = new String[] { "", "default", "most-allocated" };
 
     public OrkaInfoHelper(OrkaClientProxyFactory clientProxyFactory) {
         this.clientProxyFactory = clientProxyFactory;

@@ -93,6 +93,15 @@ public class OrkaClientProxy {
         }
     }
 
+    public DeploymentResponse deployVM(String vmName, String node, String scheduler) throws IOException {
+        try (OrkaClient client = getOrkaClient()) {
+            if (scheduler == "" || scheduler == null) {
+                return client.deployVM(vmName, node);
+            }
+            return client.deployVM(vmName, node, scheduler);
+        }
+    }
+
     public DeletionResponse deleteVM(String vmName) throws IOException {
         try (OrkaClient client = getOrkaClient()) {
             return client.deleteVM(vmName);

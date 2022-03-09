@@ -19,11 +19,13 @@
           <c:select />
         </f:entry>
 
-        <f:entry title="${%Scheduler}" field="scheduler">
-          <c:select />
-        </f:entry>
+        <f:advanced>
+          <f:entry title="${%Scheduler}" field="scheduler">
+            <c:select />
+          </f:entry>
+        <f:advanced>
 
-        </f:optionalBlock>
+      </f:optionalBlock>
 
         <f:entry field="vmCredentialsId" title="${%VM Credentials}" description="Credentials used to connect to the VM">
           <c:select />

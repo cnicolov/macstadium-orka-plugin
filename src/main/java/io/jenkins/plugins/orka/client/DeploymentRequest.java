@@ -14,8 +14,17 @@ public class DeploymentRequest {
     @SuppressFBWarnings("URF_UNREAD_FIELD")
     private String node;
 
+    @SuppressFBWarnings("URF_UNREAD_FIELD")
+    private String scheduler;
+
     public DeploymentRequest(String vmName, String node) {
         this.vmName = vmName;
         this.node = node;
+    }
+
+    public DeploymentRequest(String vmName, String node, String scheduler) {
+        this.vmName = vmName;
+        this.node = node;
+        this.scheduler = scheduler;
     }
 }

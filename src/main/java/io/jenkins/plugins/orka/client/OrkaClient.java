@@ -148,6 +148,19 @@ public class OrkaClient implements AutoCloseable {
         return response;
     }
 
+    public DeploymentResponse deployVM(String vmName, String node, String scheduler) throws IOException {
+        Gson gson = new Gson();
+
+        DeploymentRequest deploymentRequest = new DeploymentRequest(vmName, node, scheduler);
+        String deploymentRequestJson = gson.toJson(deploymentRequest);
+
+        HttpResponse httpResponse = this.post(this.endpoint + VM_PATH + DEPLOY_PATH, deploymentRequestJson);
+        DeploymentResponse response = gson.fromJson(httpResponse.getBody(), DeploymentResponse.class);
+        response.setHttpResponse(httpResponse);
+
+        return response;
+    }
+
     public DeletionResponse deleteVM(String vmName) throws IOException {
         return this.deleteVM(vmName, null);
     }
