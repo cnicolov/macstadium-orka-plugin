@@ -23,7 +23,7 @@
           <f:entry title="${%Scheduler}" field="scheduler">
             <c:select />
           </f:entry>
-        <f:advanced>
+        </f:advanced>
 
       </f:optionalBlock>
 
