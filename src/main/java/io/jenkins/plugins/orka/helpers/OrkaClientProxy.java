@@ -95,7 +95,7 @@ public class OrkaClientProxy {
 
     public DeploymentResponse deployVM(String vmName, String node, String scheduler) throws IOException {
         try (OrkaClient client = getOrkaClient()) {
-            if (scheduler == "" || scheduler == null) {
+            if (scheduler.isEmpty() || scheduler == null) {
                 return client.deployVM(vmName, node);
             }
             return client.deployVM(vmName, node, scheduler);
